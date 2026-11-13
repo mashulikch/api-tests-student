@@ -28,16 +28,29 @@ TEST_LOGIN=your_login
 TEST_PASSWORD=your_password
 ```
 
+Для проверки удаления объявления из избранного другого пользователя дополнительно укажите отдельную
+тестовую учетную запись владельца объявления:
+
+```
+TEST_OTHER_LOGIN=another_login
+TEST_OTHER_PASSWORD=another_password
+```
+
+Без второй учетной записи этот межпользовательский сценарий будет пропущен: API запрещает добавлять
+собственные объявления в избранное.
+
 8. Для запуска всех тестов достаточно выполнить команду в корне проекта:
 
 ```bash
-  go test -v ./...
+  go test -count=1 -v ./...
 ```
 
 9. Отдельный пакет с тестами можно запустить командой:
 
 ```bash
-  go test -v ./tests/scenarios/myAdvertisement/
+  go test -count=1 -v ./tests/scenarios/advertisementCreate/
+  go test -count=1 -v ./tests/scenarios/favorites/
+  go test -count=1 -v ./tests/scenarios/myAdvertisement/
 ```
 
 ## Логирование

@@ -58,7 +58,9 @@ func (s *TestSuite) TestGetMyAdvertisementsPositive() {
 			require.NotEmpty(s.T(), gjson.Get(item.String(), "updated_at").String(), "updated_at пустое")
 			require.NotEmpty(s.T(), gjson.Get(item.String(), "title").String(), "Название пустое")
 			require.NotEmpty(s.T(), gjson.Get(item.String(), "description").String(), "Описание пустое")
-			require.True(s.T(), len(gjson.Get(item.String(), "photos").Array()) > 0, "Присутствуют пустые фотографии")
+			for _, photo := range gjson.Get(item.String(), "photos").Array() {
+				require.NotEmpty(s.T(), gjson.Get(photo.String(), "url").String(), "У фотографии отсутствует URL")
+			}
 		}
 	})
 }
